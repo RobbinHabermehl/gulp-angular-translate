@@ -1,12 +1,11 @@
 var concat = require('gulp-concat');
 var es = require('event-stream');
 var gutil = require('gulp-util');
-var jsStringEscape = require('js-string-escape');
 
 function cacheTranslations(options) {
   return es.map(function(file, callback) {
     file.contents = new Buffer(gutil.template('$translateProvider.translations("<%= language %>", <%= contents %>);\n', {
-      contents: jsStringEscape(file.contents),
+      contents: file.contents,
       file: file,
       language: options.language || file.path.match(/-([a-z]{2})\.json$/)[1]
     }));
