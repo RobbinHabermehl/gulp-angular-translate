@@ -27,10 +27,10 @@ npm install gulp-angular-translate --save-dev
 ```js
 var angularTranslate = require('gulp-angular-translate');
 
-gulp.task('default', function () {
-	gulp.src('src/**/locale-*.json')
-		.pipe(angularTranslate())
-		.pipe(gulp.dest('app/js'));
+gulp.task('default', function() {
+  return gulp.src('src/**/locale-*.json')
+    .pipe(angularTranslate())
+    .pipe(gulp.dest('app/js'));
 });
 ```
 
@@ -40,7 +40,7 @@ gulp.task('default', function () {
 
 ```js
 angular.module("translations", []).config(["$translateProvider", function($translateProvider) {
-	$translateProvider.translations("en", { ... });
+  $translateProvider.translations("en", { /* ... */ });
 }]);
 ```
 
@@ -55,6 +55,10 @@ gulp-angular-translate([filename](https://github.com/RobbinHabermehl/gulp-angula
 > Name to use when concatinating.
 
 ### options
+
+#### language - {string} [language=`filename.match(/-([a-z]{2})\.json$/)`]
+
+> Sets the language of the matched files, uses the two-letter suffix of the filename by default.
 
 #### module - {string} [module='translations']
 
