@@ -10,7 +10,7 @@ describe('gulp-angular-translate', function () {
     stream.on('data', function(file) {
       assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
       assert.equal(file.relative, 'translations.js');
-      assert.equal(file.contents.toString('utf8'), 'angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\\"HEADLINE\\":\\"What an awesome module!\\"});\n\n$translateProvider.translations("de", {\\"HEADLINE\\":\\"Was für ein großartiges Modul!\\"});\n}]);\n');
+      assert.equal(file.contents.toString('utf8'), 'angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n\n$translateProvider.translations("de", {\"HEADLINE\":\"Was für ein großartiges Modul!\"});\n}]);\n');
       cb();
     });
 
@@ -37,7 +37,7 @@ describe('gulp-angular-translate', function () {
     stream.on('data', function(file) {
       assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
       assert.equal(file.relative, 'translations.js');
-      assert.equal(file.contents.toString('utf8'), 'angular.module("test", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\\"HEADLINE\\":\\"What an awesome module!\\"});\n}]);\n');
+      assert.equal(file.contents.toString('utf8'), 'angular.module("test", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n');
       cb();
     });
 
@@ -59,7 +59,7 @@ describe('gulp-angular-translate', function () {
       stream.on('data', function (file) {
         assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
         assert.equal(file.relative, 'translations.js');
-        assert.equal(file.contents.toString('utf8'), 'angular.module("translations").config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\\"HEADLINE\\":\\"What an awesome module!\\"});\n}]);\n');
+        assert.equal(file.contents.toString('utf8'), 'angular.module("translations").config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n');
         cb();
       });
 
@@ -101,7 +101,7 @@ describe('gulp-angular-translate', function () {
       stream.on('data', function(file) {
         assert.equal(path.normalize(file.path), path.normalize(__dirname + '/foobar.js'));
         assert.equal(file.relative, 'foobar.js');
-        assert.equal(file.contents.toString('utf8'), 'angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\\"HEADLINE\\":\\"What an awesome module!\\"});\n}]);\n');
+        assert.equal(file.contents.toString('utf8'), 'angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n');
         cb();
       });
 
