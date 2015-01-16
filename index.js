@@ -7,7 +7,7 @@ function cacheTranslations(options) {
     file.contents = new Buffer(gutil.template('$translateProvider.translations("<%= language %>", <%= contents %>);\n', {
       contents: file.contents,
       file: file,
-      language: options.language || file.path.match(/-([a-z]{2})\.json$/)[1]
+      language: options.language || file.path.match(/([a-zA-Z_]*)\.json$/)[1]
     }));
     callback(null, file);
   });
