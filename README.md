@@ -56,9 +56,27 @@ gulp-angular-translate([filename](https://github.com/RobbinHabermehl/gulp-angula
 
 ### options
 
-#### language - {string} [language=`filename.match(/-([a-z]{2})\.json$/)`]
+#### language - {string} [language=`derived from filename`]
 
-> Sets the language of the matched files, uses the two-letter suffix of the filename by default.
+> Sets the language of the matched files, derived from the filename by default:
+
+Filename | Result
+------------ | -------------------
+locale-en.json | en
+locale-en-us.json | en-us
+locale-en_us.json | en_us
+locale-en-US.json | en-US
+locale-en_US.json | en_US
+i18n-en.json | en
+i18n-en-us.json | en-us
+i18n-en_us.json | en_us
+i18n-en-US.json | en-US
+i18n-en_US.json | en_US
+en.json | en
+en-us.json | en-us
+en_us.json | en_us
+en-US.json | en-US
+en_US.json | en_US
 
 #### module - {string} [module='translations']
 
