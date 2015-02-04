@@ -1,4 +1,4 @@
-# gulp-angular-translate [![Build Status](https://travis-ci.org/RobbinHabermehl/gulp-angular-translate.svg?branch=master)](https://travis-ci.org/RobbinHabermehl/gulp-angular-translate)
+# gulp-angular-translate [![Build Status](https://travis-ci.org/RobbinHabermehl/gulp-angular-translate.svg?branch=master)](https://travis-ci.org/RobbinHabermehl/gulp-angular-translate) [![Dependency Status](https://david-dm.org/RobbinHabermehl/gulp-angular-translate.svg)](https://david-dm.org/RobbinHabermehl/gulp-angular-translate)
 
 > Concatenates and registers translations for angular-translate in an AngularJS module.
 
