@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular-translate",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Concatenates and registers translations for angular-translate in an AngularJS module.",
   "repository": {
     "type": "git",
