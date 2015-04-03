@@ -8,10 +8,21 @@ function cacheTranslations(options) {
     file.contents = new Buffer(gutil.template('$translateProvider.translations("<%= language %>", <%= contents %>);\n', {
       contents: file.contents,
       file: file,
-      language: options.language || file.path.split(path.sep).pop().match(/^(?:[\w]{3,}-)?([a-z]{2}[_|-]?(?:[A-Z]{2})?)\.json$/i).pop()
+      language: options.language || determineFileLanguage(file.path, options)
     }));
     callback(null, file);
   });
+}
+
+function determineFileLanguage(filePath, options) {
+  if (options.useFolders === true) {
+    var match = filePath.match(new RegExp(path.sep + '([a-z]{2}[_|-]?(?:[A-Za-z]{2})?)' + path.sep + '[^' + path.sep + ']+\.json'));
+    if (match && match.length > 0) {
+      return match.pop();
+    }
+  }
+
+  return filePath.split(path.sep).pop().match(/^(?:[\w]{3,}-)?([a-z]{2}[_|-]?(?:[A-Z]{2})?)\.json$/i).pop();
 }
 
 function wrapTranslations(options) {
