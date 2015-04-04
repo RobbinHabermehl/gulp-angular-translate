@@ -27,11 +27,12 @@ function determineFileLanguage(filePath, options) {
 
 function wrapTranslations(options) {
   return es.map(function(file, callback) {
-    file.contents = new Buffer(gutil.template('angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n', {
+    file.contents = new Buffer(gutil.template('<%= strict %>angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n', {
       contents: file.contents,
       file: file,
       module: options.module || 'translations',
-      standalone: options.standalone === false ? '' : ', []'
+      standalone: options.standalone === false ? '' : ', []',
+      strict: options.useStrict === true ? "'use strict'; " : ''
     }));
     callback(null, file);
   });

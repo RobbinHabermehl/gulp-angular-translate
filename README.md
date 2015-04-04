@@ -87,15 +87,20 @@ path/en_US/messages.json | en_US
 
 > Name of AngularJS module.
 
+#### standalone - {boolean} [standalone=true]
+
+> Create a new AngularJS module, instead of using an existing.
+
 #### useFolders - {boolean} [useFolders=false]
 
 > Enables testing of folder names prior to test file path
 
 If locale couldn't be determined from folder name, filename would be tested instead.
 
-#### standalone - {boolean} [standalone=true]
+#### useStrict - {boolean} [useStrict=false]
 
-> Create a new AngularJS module, instead of using an existing.
+> Output files would have z'use strict';` statement
+
 
 ## License
 
