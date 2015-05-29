@@ -112,7 +112,7 @@ describe('gulp-angular-translate', function () {
   });
 
   describe('options.preferredLanguage', function () {
-    it('should set a the preferred language', function(cb) {
+    it('should set the preferred language', function(cb) {
       var stream = angularTranslate({
         preferredLanguage: 'en'
       });
