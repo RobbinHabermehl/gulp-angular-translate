@@ -2,6 +2,8 @@ var concat = require('gulp-concat');
 var es = require('event-stream');
 var gutil = require('gulp-util');
 var path = require('path');
+var defaultTemplate = 'angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n';
+var preferredLanguageTemplate = 'angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>$translateProvider.preferredLanguage("<%= preferredLanguage %>");}]);\n';
 
 function cacheTranslations(options) {
   return es.map(function(file, callback) {
@@ -16,11 +18,12 @@ function cacheTranslations(options) {
 
 function wrapTranslations(options) {
   return es.map(function(file, callback) {
-    file.contents = new Buffer(gutil.template('angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n', {
+    file.contents = new Buffer(gutil.template((options.preferredLanguage) ? preferredLanguageTemplate : defaultTemplate, {
       contents: file.contents,
       file: file,
       module: options.module || 'translations',
-      standalone: options.standalone === false ? '' : ', []'
+      standalone: options.standalone === false ? '' : ', []',
+      preferredLanguage: options.preferredLanguage
     }));
     callback(null, file);
   });

@@ -111,6 +111,29 @@ describe('gulp-angular-translate', function () {
     });
   });
 
+  describe('options.preferredLanguage', function () {
+    it('should set the preferred language', function(cb) {
+      var stream = angularTranslate({
+        preferredLanguage: 'en'
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
+        assert.equal(file.relative, 'translations.js');
+        assert.equal(file.contents.toString('utf8'), 'angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n$translateProvider.preferredLanguage("en");}]);\n');
+        cb();
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/locale-en.json',
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();
+    });
+});
+
   describe('options.filename', function () {
     it('should default to translations.js if not specified', function(cb) {
       var stream = angularTranslate();
