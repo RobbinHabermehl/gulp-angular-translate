@@ -16,7 +16,7 @@ function cacheTranslations(options) {
 
 function determineFileLanguage(filePath, options) {
   if (options.useFolders === true) {
-    var match = filePath.match(new RegExp(path.sep + '([a-z]{2}[_|-]?(?:[A-Za-z]{2})?)' + path.sep + '[^' + path.sep + ']+\.json'));
+    var match = filePath.match(new RegExp('\\' + path.sep + '([a-z]{2}[_|-]?(?:[A-Za-z]{2})?)' + '\\' + path.sep + '[^' + '\\' + path.sep + ']+\.json'));
     if (match && match.length > 0) {
       return match.pop();
     }
