@@ -88,6 +88,36 @@ describe('gulp-angular-translate', function () {
     cb();
   });
 
+  it('should derive the language from locale-folders', function(cb) {
+    var filenames = {
+      'path/en/locale.json': 'en',
+      'path/en-us/locale.json': 'en-us',
+      'path/en_us/locale.json': 'en_us',
+      'path/en-US/locale.json': 'en-US',
+      'path/en_US/locale.json': 'en_US'
+    };
+
+    for (var filename in filenames) {
+      var stream = angularTranslate('translations.js', {
+        useFolders: true
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(new RegExp('\\$translateProvider\\.translations\\("' + filenames[filename] + '"').test(file.contents.toString('utf8')), true);
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/' + filename,
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();      
+    }
+    
+    cb();
+  });
+
   describe('options.standalone', function () {
     it('shouldn\'t create standalone AngularJS module', function(cb) {
       var stream = angularTranslate('translations.js', {

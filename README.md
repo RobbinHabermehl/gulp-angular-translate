@@ -56,7 +56,7 @@ gulp-angular-translate([filename](https://github.com/RobbinHabermehl/gulp-angula
 
 ### options
 
-#### language - {string} [language=`derived from filename`]
+#### language - {string} [language=`derived from filename or folder`]
 
 > Sets the language of the matched files, derived from the filename by default:
 
@@ -77,6 +77,11 @@ en-us.json | en-us
 en_us.json | en_us
 en-US.json | en-US
 en_US.json | en_US
+path/en/messages.json | en
+path/en-us/messages.json | en-us
+path/en_us/messages.json | en_us
+path/en-US/messages.json | en-US
+path/en_US/messages.json | en_US
 
 #### module - {string} [module='translations']
 
@@ -85,6 +90,17 @@ en_US.json | en_US
 #### standalone - {boolean} [standalone=true]
 
 > Create a new AngularJS module, instead of using an existing.
+
+#### useFolders - {boolean} [useFolders=false]
+
+> Enables testing of folder names prior to test file path
+
+If locale couldn't be determined from folder name, filename would be tested instead.
+
+#### useStrict - {boolean} [useStrict=false]
+
+> Output files would have z'use strict';` statement
+
 
 ## License
 
