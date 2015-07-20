@@ -16,7 +16,7 @@ function cacheTranslations(options) {
 
 function wrapTranslations(options) {
   return es.map(function(file, callback) {
-    file.contents = new Buffer(gutil.template('angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n', {
+    file.contents = new Buffer(gutil.template('angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>$translateProvider.useSanitizeValueStrategy("escaped");\n}]);\n', {
       contents: file.contents,
       file: file,
       module: options.module || 'translations',
