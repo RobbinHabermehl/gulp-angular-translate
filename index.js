@@ -7,7 +7,7 @@ function cacheTranslations(options) {
   return es.map(function(file, callback) {
     var template = '$translateProvider.translations("<%= language %>", <%= contents %>);\n';
     if(options.prefixWithFilename)  {
-      template = '$translateProvider.translations("<%= language %>", { <%file.name %> : <%= contents %>) };\n'
+      template = '$translateProvider.translations("<%= language %>", { <% file.basename %> : <%= contents %>) };\n'
     }
 
     file.contents = new Buffer(gutil.template(template, {
