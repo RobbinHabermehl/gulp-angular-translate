@@ -5,9 +5,15 @@ var path = require('path');
 
 function cacheTranslations(options) {
   return es.map(function(file, callback) {
-    file.contents = new Buffer(gutil.template('$translateProvider.translations("<%= language %>", <%= contents %>);\n', {
+    var template = '$translateProvider.translations("<%= language %>", <%= contents %>);\n';
+    if(options.prefixWithFilename)  {
+      template = '$translateProvider.translations("<%= language %>", { \n"<%= basename %>"  : <%= contents %>\n });\n'
+    }
+
+    file.contents = new Buffer(gutil.template(template, {
       contents: file.contents,
       file: file,
+      basename: file.path.split(path.sep).pop().replace('.json', ''),
       language: options.language || file.path.split(path.sep).pop().match(/^(?:[\w]{3,}-)?([a-z]{2}[_|-]?(?:[A-Z]{2})?)\.json$/i).pop()
     }));
     callback(null, file);
