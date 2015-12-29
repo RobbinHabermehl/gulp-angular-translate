@@ -86,6 +86,10 @@ en_US.json | en_US
 
 > Create a new AngularJS module, instead of using an existing.
 
+#### moduleSystem {string}
+
+> Wrap the translations in a module system. Currently supported systems: `RequireJS`, `Browserify`, `ES6` and `IIFE` (Immediately-Invoked Function Expression).
+
 ## License
 
 The MIT License (MIT)
