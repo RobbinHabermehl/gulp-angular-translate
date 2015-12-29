@@ -82,9 +82,9 @@ describe('gulp-angular-translate', function () {
         contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
       }));
 
-      stream.end();      
+      stream.end();
     }
-    
+
     cb();
   });
 
@@ -151,5 +151,94 @@ describe('gulp-angular-translate', function () {
 
       stream.end();
     });
+  });
+
+  describe('options.moduleSystem', function () {
+
+    it('should support Browserify-style exports', function (cb) {
+      var stream = angularTranslate('translations.js', {
+        moduleSystem: 'Browserify',
+        standalone: true
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(file.path, path.normalize(__dirname + '/translations.js'));
+        assert.equal(file.relative, 'translations.js');
+        assert.equal(file.contents.toString('utf8'), '\'use strict\';\nmodule.exports = angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n');
+        cb();
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/locale-en.json',
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();
+    });
+
+    it('should support RequireJS-style exports', function (cb) {
+      var stream = angularTranslate('translations.js', {
+        moduleSystem: 'RequireJS'
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
+        assert.equal(file.relative, 'translations.js');
+        assert.equal(file.contents.toString('utf8'), 'define([\'angular\'], function(angular) {\n\'use strict\';\nreturn angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n});');
+        cb();
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/locale-en.json',
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();
+    });
+
+    it('should support ES6-style exports', function (cb) {
+      var stream = angularTranslate('translations.js', {
+        moduleSystem: 'ES6'
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
+        assert.equal(file.relative, 'translations.js');
+        assert.equal(file.contents.toString('utf8'), 'import angular from \'angular\';\nexport default angular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n');
+        cb();
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/locale-en.json',
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();
+    });
+
+    it('should support iife exports', function (cb) {
+      var stream = angularTranslate('translations.js', {
+        moduleSystem: 'iife'
+      });
+
+      stream.on('data', function (file) {
+        assert.equal(path.normalize(file.path), path.normalize(__dirname + '/translations.js'));
+        assert.equal(file.relative, 'translations.js');
+        assert.equal(file.contents.toString('utf8'), '(function(){\nangular.module("translations", []).config(["$translateProvider", function($translateProvider) {\n$translateProvider.translations("en", {\"HEADLINE\":\"What an awesome module!\"});\n}]);\n})();');
+        cb();
+      });
+
+      stream.write(new gutil.File({
+        base: __dirname,
+        path: __dirname + '/locale-en.json',
+        contents: new Buffer('{"HEADLINE":"What an awesome module!"}')
+      }));
+
+      stream.end();
+    });
+
   });
 });
