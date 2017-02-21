@@ -15,12 +15,13 @@ function cacheTranslations(options) {
 }
 
 function wrapTranslations(options) {
+  var dependencies = options.dependencies.constructor && options.dependencies.constructor == Array ? options.dependencies.toString() : '[]';
   return es.map(function(file, callback) {
     file.contents = new Buffer(gutil.template('angular.module("<%= module %>"<%= standalone %>).config(["$translateProvider", function($translateProvider) {\n<%= contents %>}]);\n', {
       contents: file.contents,
       file: file,
       module: options.module || 'translations',
-      standalone: options.standalone === false ? '' : ', []'
+      standalone: options.standalone === false ? '' : ', ' + dependencies
     }));
     callback(null, file);
   });
